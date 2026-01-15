@@ -39,7 +39,7 @@ The repository is **read-only for general users** and **SQL must not be executed
 
 ## Folder Structure
 
-# ```text
+```text
 /
 ├── README.md
 ├── SELECT/
@@ -89,7 +89,7 @@ SELECT | ACTION
 Aggregate | Limited | Row-level PHI
 
 ## SQL / Action Definition
-# ```sql
+```sql
 -- SQL goes here (SELECT only)
 
 
