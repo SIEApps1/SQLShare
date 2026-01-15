@@ -100,7 +100,7 @@
         {"key":"Accession","type":"varchar","required":false},
         {"key":"ErrorMessage","type":"varchar","required":false}
       ],
-      "restricted": true
+      "raw_url": "https://github.com/SIEApps1/SQLShare/blob/add/sql-queries/ACTIONS/workflow_resubmit_lcs.md"
     }
   ]
 }
