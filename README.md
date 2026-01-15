@@ -39,7 +39,7 @@ The repository is **read-only for general users** and **SQL must not be executed
 
 ## Folder Structure
 
-## ```text
+# ```text
 /
 ├── README.md
 ├── SELECT/
@@ -54,7 +54,13 @@ The repository is **read-only for general users** and **SQL must not be executed
 │   └── workflow_resubmit_lcs.md
 │
 └── DEPRECATED/
----
+
+
+
+#Standard Markdown Format
+
+#All query files must follow this structure
+
 # <Query Title>
 
 ## ID
@@ -83,8 +89,14 @@ SELECT | ACTION
 Aggregate | Limited | Row-level PHI
 
 ## SQL / Action Definition
-## ```sql
+# ```sql
 -- SQL goes here (SELECT only)
+
+
+
+
+---
+
 
 ---
 
