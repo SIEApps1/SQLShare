@@ -29,5 +29,5 @@ Row-level PHI
 
 ## SQL / Action Definition
 ```sql
-SELECT * FROM examcodes WHERE examcode = {{examcode}};
+SELECT top 10 * FROM examcodes WHERE examcode = {{examcode}};
 ```
