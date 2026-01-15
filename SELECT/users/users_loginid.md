@@ -29,5 +29,5 @@ Row-level PHI
 
 ## SQL / Action Definition
 ```sql
-SELECT * FROM users WHERE loginid = {{loginid}};
+SELECT top 10 * FROM users WHERE loginid = {{loginid}};
 ```
