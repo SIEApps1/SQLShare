@@ -1,0 +1,106 @@
+{
+  "version": "2026-01-15",
+  "repo": "SIEApps1/SQLShare",
+  "branch": "add/sql-queries",
+  "generated_at": "2026-01-15T00:00:00Z",
+  "manifest_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/manifest.json",
+  "items": [
+    {
+      "id": "demo1",
+      "title": "Demo: SELECT 1",
+      "path": "SELECT/demo/demo1.md",
+      "type": "SELECT",
+      "tags": ["demo"],
+      "fields": [],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/demo/demo1.md"
+    },
+    {
+      "id": "examlist_accession",
+      "title": "ExamList: Find by Accession",
+      "path": "SELECT/exam/examlist_accession.md",
+      "type": "SELECT",
+      "tags": ["read-only","exam"],
+      "fields": [
+        {"key":"accession","type":"string","required":true,"placeholder":"e.g., A12345"}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/exam/examlist_accession.md"
+    },
+    {
+      "id": "examcodes_examcode",
+      "title": "ExamCodes: Find by Exam Code",
+      "path": "SELECT/exam/examcodes_examcode.md",
+      "type": "SELECT",
+      "tags": ["read-only","exam"],
+      "fields": [
+        {"key":"examcode","type":"string","required":true}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/exam/examcodes_examcode.md"
+    },
+    {
+      "id": "patient_mrn",
+      "title": "Patient: Find by MRN",
+      "path": "SELECT/patient/patient_mrn.md",
+      "type": "SELECT",
+      "tags": ["read-only","patient"],
+      "fields": [
+        {"key":"mrn","type":"string","required":true,"placeholder":"e.g., 123456"}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/patient/patient_mrn.md"
+    },
+    {
+      "id": "users_providerid",
+      "title": "Users: Find by Provider ID",
+      "path": "SELECT/users/users_providerid.md",
+      "type": "SELECT",
+      "tags": ["read-only","users"],
+      "fields": [
+        {"key":"providerid","type":"string","required":true}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/users/users_providerid.md"
+    },
+    {
+      "id": "users_loginid",
+      "title": "Users: Find by Login ID",
+      "path": "SELECT/users/users_loginid.md",
+      "type": "SELECT",
+      "tags": ["read-only","users"],
+      "fields": [
+        {"key":"loginid","type":"string","required":true}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/users/users_loginid.md"
+    },
+    {
+      "id": "cmsetting_all",
+      "title": "CMSetting: View All",
+      "path": "SELECT/settings/cmsetting_all.md",
+      "type": "SELECT",
+      "tags": ["read-only","settings"],
+      "fields": [],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/settings/cmsetting_all.md"
+    },
+    {
+      "id": "workflows_created_range",
+      "title": "Workflows: Created Date Range",
+      "path": "SELECT/workflows/workflows_created_range.md",
+      "type": "SELECT",
+      "tags": ["read-only","workflow"],
+      "fields": [
+        {"key":"startDate","type":"date","required":true},
+        {"key":"endDate","type":"date","required":true}
+      ],
+      "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/workflows/workflows_created_range.md"
+    },
+    {
+      "id": "workflow_resubmit_lcs",
+      "title": "Resubmit Errors to ACR (LCS) — Clear Error Flags",
+      "path": "ACTIONS/workflow_resubmit_lcs.md",
+      "type": "ACTION",
+      "tags": ["LCS","ACR","Resubmit","restricted"],
+      "fields": [
+        {"key":"Accession","type":"varchar","required":false},
+        {"key":"ErrorMessage","type":"varchar","required":false}
+      ],
+      "restricted": true
+    }
+  ]
+}
