@@ -91,6 +91,23 @@
       "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/SELECT/workflows/workflows_created_range.md"
     },
     {
+  "id": "users_upsert_by_loginid",
+  "title": "Users: Create User if Missing (Admin)",
+  "path": "ACTIONS/users_upsert_by_loginid.md",
+  "type": "ACTION",
+  "tags": ["users","admin","restricted","upsert"],
+  "fields": [
+    {"key":"loginID","type":"string","required":true,"placeholder":"e.g., dduck"},
+    {"key":"firstName","type":"string","required":true,"placeholder":"e.g., Donald"},
+    {"key":"lastName","type":"string","required":true,"placeholder":"e.g., Duck"},
+    {"key":"fullName","type":"string","required":true,"placeholder":"e.g., Donald Duck"},
+    {"key":"roles","type":"string","required":true,"placeholder":"e.g., 012"},
+    {"key":"enabled","type":"int","required":true,"placeholder":"1"},
+    {"key":"active","type":"int","required":true,"placeholder":"1"}
+  ],
+  "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/ACTIONS/users_upsert_by_loginid.md"
+}
+    {
       "id": "workflow_resubmit_lcs",
       "title": "Resubmit Errors to ACR (LCS) — Clear Error Flags",
       "path": "ACTIONS/workflow_resubmit_lcs.md",
