@@ -1,25 +1,69 @@
 # Users: Create User if Missing (Admin)
 
-Admin-only action. Creates a new user in dbo.Users if it does not already exist.
+## ID
+users_upsert_by_loginid
 
-Inputs:
-- {{loginID}}, {{firstName}}, {{lastName}}, {{fullName}}, {{roles}}, {{enabled}}, {{active}}
+## Description
+Admin-only action. Updates a user if it exists (standardizes key fields). If the user does not exist, inserts a new record. Returns the resulting record for verification.
 
+## Tags
+- users
+- admin
+- restricted
+- upsert
+- maintenance
+
+## Query Type
+ACTION
+
+## Tables Used
+- dbo.Users
+
+## Parameters
+| Name | Type | Required | Description |
+|---|---|---:|---|
+| loginID | varchar | Yes | Login ID to upsert (unique key) |
+| firstName | varchar | Yes | User first name |
+| lastName | varchar | Yes | User last name |
+| fullName | varchar | Yes | Full display name |
+| roles | varchar | Yes | Role string (example: 012) |
+| enabled | int | Yes | 1 = enabled, 0 = disabled |
+| active | int | Yes | 1 = active, 0 = inactive |
+
+## Max Rows
+N/A
+
+## PHI Classification
+No PHI
+
+## SQL / Action Definition
 ```sql
-USE [Primordial];
+/*
+  Users: Upsert by loginID
+  - Admin-only ACTION
+  - Assumes the connected database is correct (no USE statements)
+*/
 
--- Try UPDATE first (in case user exists but needs standardization)
+DECLARE @loginID   VARCHAR(100) = {{loginID}};
+DECLARE @firstName VARCHAR(100) = {{firstName}};
+DECLARE @lastName  VARCHAR(100) = {{lastName}};
+DECLARE @fullName  VARCHAR(200) = {{fullName}};
+DECLARE @roles     VARCHAR(50)  = {{roles}};
+DECLARE @enabled   INT          = {{enabled}};
+DECLARE @active    INT          = {{active}};
+
+-- Update if exists
 UPDATE dbo.Users
 SET
-  firstName   = {{firstName}},
-  lastName    = {{lastName}},
-  fullName    = {{fullName}},
-  roles       = {{roles}},
-  enabled     = {{enabled}},
-  active      = {{active}}
-WHERE loginID = {{loginID}};
+  firstName   = @firstName,
+  lastName    = @lastName,
+  fullName    = @fullName,
+  roles       = @roles,
+  enabled     = @enabled,
+  active      = @active
+WHERE loginID = @loginID;
 
--- If no row was updated, INSERT
+-- Insert if missing
 INSERT INTO dbo.Users
 (
   loginID,
@@ -35,22 +79,34 @@ INSERT INTO dbo.Users
   createdBy
 )
 SELECT
-  {{loginID}},
-  {{firstName}},
-  {{lastName}},
-  {{fullName}},
-  {{roles}},
-  {{enabled}},
-  {{active}},
+  @loginID,
+  @firstName,
+  @lastName,
+  @fullName,
+  @roles,
+  @enabled,
+  @active,
   GETDATE(),
   GETDATE(),
   SYSTEM_USER,
   SYSTEM_USER
 WHERE NOT EXISTS (
-  SELECT 1 FROM dbo.Users WHERE loginID = {{loginID}}
+  SELECT 1 FROM dbo.Users WHERE loginID = @loginID
 );
 
--- Return the resulting record for verification
-SELECT loginID, firstName, lastName, fullName, roles, enabled, active, createdDt, createdBy
+-- Return record for verification
+SELECT
+  loginID, firstName, lastName, fullName, roles, enabled, active, createdDt, createdBy
 FROM dbo.Users
-WHERE loginID = {{loginID}};
+WHERE loginID = @loginID;
+
+
+---
+
+### Notes (so it behaves nicely in-app)
+- Uses `DECLARE @vars` + `{{placeholders}}` like your other ACTION scripts.
+- No `USE` / no `GO` / no `PRINT`.
+- Ends with a `SELECT` so the output window shows a clean verification row.
+
+If you want, paste the exact `manifest.json` entry you added for this script and I’ll verify `id/path/raw_url/fields` line up perfectly (especially casing like `loginID` vs `loginid`).
+::contentReference[oaicite:0]{index=0}
