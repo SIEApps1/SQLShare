@@ -101,12 +101,4 @@ FROM dbo.Users
 WHERE loginID = @loginID;
 
 
----
 
-### Notes (so it behaves nicely in-app)
-- Uses `DECLARE @vars` + `{{placeholders}}` like your other ACTION scripts.
-- No `USE` / no `GO` / no `PRINT`.
-- Ends with a `SELECT` so the output window shows a clean verification row.
-
-If you want, paste the exact `manifest.json` entry you added for this script and I’ll verify `id/path/raw_url/fields` line up perfectly (especially casing like `loginID` vs `loginid`).
-::contentReference[oaicite:0]{index=0}
