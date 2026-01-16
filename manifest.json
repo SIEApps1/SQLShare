@@ -106,7 +106,7 @@
     {"key":"active","type":"int","required":true,"placeholder":"1"}
   ],
   "raw_url": "https://raw.githubusercontent.com/SIEApps1/SQLShare/add/sql-queries/ACTIONS/users_upsert_by_loginid.md"
-}
+},
     {
       "id": "workflow_resubmit_lcs",
       "title": "Resubmit Errors to ACR (LCS) — Clear Error Flags",
