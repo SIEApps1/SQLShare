@@ -52,53 +52,44 @@ DECLARE @roles     VARCHAR(50)  = {{roles}};
 DECLARE @enabled   INT          = {{enabled}};
 DECLARE @active    INT          = {{active}};
 
--- Update if exists
-UPDATE dbo.Users
-SET
-  firstName   = @firstName,
-  lastName    = @lastName,
-  fullName    = @fullName,
-  roles       = @roles,
-  enabled     = @enabled,
-  active      = @active
-WHERE loginID = @loginID;
+DECLARE @ActionTaken VARCHAR(20);
 
--- Insert if missing
-INSERT INTO dbo.Users
-(
-  loginID,
-  firstName,
-  lastName,
-  fullName,
-  roles,
-  enabled,
-  active,
-  insertedDt,
-  createdDt,
-  insertedBy,
-  createdBy
-)
-SELECT
-  @loginID,
-  @firstName,
-  @lastName,
-  @fullName,
-  @roles,
-  @enabled,
-  @active,
-  GETDATE(),
-  GETDATE(),
-  SYSTEM_USER,
-  SYSTEM_USER
-WHERE NOT EXISTS (
-  SELECT 1 FROM dbo.Users WHERE loginID = @loginID
-);
+IF EXISTS (SELECT 1 FROM dbo.Users WHERE loginID = @loginID)
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM dbo.Users
+    WHERE loginID = @loginID
+      AND ISNULL(firstName,'') = ISNULL(@firstName,'')
+      AND ISNULL(lastName,'')  = ISNULL(@lastName,'')
+      AND ISNULL(fullName,'')  = ISNULL(@fullName,'')
+      AND ISNULL(roles,'')     = ISNULL(@roles,'')
+      AND ISNULL(enabled,0)    = ISNULL(@enabled,0)
+      AND ISNULL(active,0)     = ISNULL(@active,0)
+  )
+  BEGIN
+    SET @ActionTaken = 'NO_CHANGE';
+  END
+  ELSE
+  BEGIN
+    UPDATE dbo.Users
+    SET firstName=@firstName,lastName=@lastName,fullName=@fullName,roles=@roles,enabled=@enabled,active=@active
+    WHERE loginID=@loginID;
 
--- Return record for verification
-SELECT
-  loginID, firstName, lastName, fullName, roles, enabled, active, createdDt, createdBy
+    SET @ActionTaken = 'UPDATED';
+  END
+END
+ELSE
+BEGIN
+  INSERT INTO dbo.Users (loginID,firstName,lastName,fullName,roles,enabled,active,insertedDt,createdDt,insertedBy,createdBy)
+  VALUES (@loginID,@firstName,@lastName,@fullName,@roles,@enabled,@active,GETDATE(),GETDATE(),SYSTEM_USER,SYSTEM_USER);
+
+  SET @ActionTaken = 'INSERTED';
+END
+
+SELECT @ActionTaken AS ActionTaken, loginID, firstName, lastName, fullName, roles, enabled, active, createdDt, createdBy
 FROM dbo.Users
 WHERE loginID = @loginID;
+
 
 
 
